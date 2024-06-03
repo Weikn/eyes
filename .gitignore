@@ -1,1 +1,3 @@
 eyesLib/*
+__pycache__/*
+spiders/__pycache__/*
