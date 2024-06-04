@@ -8,26 +8,34 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 BOT_NAME = 'eyes'
-
 SPIDER_MODULES = ['eyes.spiders']
 NEWSPIDER_MODULE = 'eyes.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'eyes (+http://www.yourdomain.com)'
-USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
+# USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
 
 CONCURRENT_REQUESTS = 1
 DOWNLOAD_DELAY = 5
 
 
-SPLASH_URL = 'http://192.168.203.92:8050'
+# 配置scrapy-splash
+SPLASH_URL = 'http://192.168.0.118:8050/'
 
+
+
+# 添加Splash中间件，还是在settings.py中通过DOWNLOADER_MIDDLEWARES指定，并且修改HttpCompressionMiddleware的优先级
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_splash.SplashCookiesMiddleware': 723,
     'scrapy_splash.SplashMiddleware': 725,
     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
+
+# 设置Splash自己的去重过滤器
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+# 如果你使用Splash的Http缓存，那么还要指定一个自定义的缓存后台存储介质，scrapy-splash提供了一个
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
 
 # Obey robots.txt rules
