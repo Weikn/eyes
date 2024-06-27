@@ -21,7 +21,7 @@ DOWNLOAD_DELAY = 5
 
 
 # 配置scrapy-splash
-SPLASH_URL = 'http://192.168.0.118:8050/'
+SPLASH_URL = 'http://127.0.0.1:8050/'
 
 
 
