@@ -1,4 +1,4 @@
-# Scrapy settings for eye project
+# Scrapy settings for eyes project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "eye"
+BOT_NAME = "eyes"
 
-SPIDER_MODULES = ["eye.spiders"]
-NEWSPIDER_MODULE = "eye.spiders"
+SPIDER_MODULES = ["eyes.spiders"]
+NEWSPIDER_MODULE = "eyes.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "eye (+http://www.yourdomain.com)"
+#USER_AGENT = "eyes (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "eye.middlewares.EyeSpiderMiddleware": 543,
+#    "eyes.middlewares.EyesSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "eye.middlewares.EyeDownloaderMiddleware": 543,
+#    "eyes.middlewares.EyesDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "eye.pipelines.EyePipeline": 300,
+#    "eyes.pipelines.EyesPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

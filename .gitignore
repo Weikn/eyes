@@ -1,4 +1,4 @@
-eyesLib/*
-__pycache__/*
-eye/eye/spiders/__pycache__/*
-eye/eye/__pycache__/*
+eyesLib/
+__pycache__/
+eyes/eyes/spiders/__pycache__
+eyes/eyes/__pycache__/
