@@ -1,4 +1,4 @@
-# Scrapy settings for eyes project
+# Scrapy settings for eye project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,36 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'eyes'
-SPIDER_MODULES = ['eyes.spiders']
-NEWSPIDER_MODULE = 'eyes.spiders'
+BOT_NAME = "eye"
+
+SPIDER_MODULES = ["eye.spiders"]
+NEWSPIDER_MODULE = "eye.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'eyes (+http://www.yourdomain.com)'
-# USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36'
-
-CONCURRENT_REQUESTS = 1
-DOWNLOAD_DELAY = 5
-
-
-# 配置scrapy-splash
-# SPLASH_URL = 'http://127.0.0.1:8050/'
-
-
-
-# 添加Splash中间件，还是在settings.py中通过DOWNLOADER_MIDDLEWARES指定，并且修改HttpCompressionMiddleware的优先级
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
-}
-
-# 设置Splash自己的去重过滤器
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
-# 如果你使用Splash的Http缓存，那么还要指定一个自定义的缓存后台存储介质，scrapy-splash提供了一个
-HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
-
+#USER_AGENT = "eye (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -60,32 +38,32 @@ ROBOTSTXT_OBEY = False
 
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
+#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+#    "Accept-Language": "en",
 #}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'eyes.middlewares.EyesSpiderMiddleware': 543,
+#    "eye.middlewares.EyeSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'eyes.middlewares.EyesDownloaderMiddleware': 543,
+#    "eye.middlewares.EyeDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
+#    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'eyes.pipelines.EyesPipeline': 300,
+#    "eye.pipelines.EyePipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -105,10 +83,10 @@ ROBOTSTXT_OBEY = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
 #HTTPCACHE_ENABLED = True
 #HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
+#HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+#HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
-# REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
-# TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+FEED_EXPORT_ENCODING = "utf-8"
