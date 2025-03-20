@@ -13,6 +13,13 @@ SPIDER_MODULES = ["eyes.spiders"]
 NEWSPIDER_MODULE = "eyes.spiders"
 
 
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+
+PLAYWRIGHT_BROWSER_TYPE = "chromium"
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "eyes (+http://www.yourdomain.com)"
 
