@@ -17,6 +17,8 @@ DOWNLOAD_HANDLERS = {
     "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
+
+# 设置这默认浏览器会打开
 PLAYWRIGHT_LAUNCH_OPTIONS = {
     "headless": False,
     "timeout": 20 * 1000,  # 20 seconds
