@@ -1,12 +1,25 @@
 #  poject  infols
+#  创建虚拟环境 以及拉取依赖
+##  python -m venv eyesLib
 
-#  python -m venv eyesLib
+## 切换到虚拟环境
+##  .\eyesLib\Scripts\activate 
 
-#  .\eyesLib\Scripts\activate 
+##  更新pip
+##  python.exe -m pip install      -i https://pypi.tuna.tsinghua.edu.cn/simple    --upgrade pip
 
+##  拉取依赖
+##  scrapy 框架
+##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple scrapy
 
-locator.inner_html()  #获取某个元素的HTML
-locator.text_content() #用来获取某个元素内所有文本内容，包含子元素内容，隐藏元素也能获取。返回值不会被格式化,返回值依赖于代码的内容
-locator.inner_text()    #的返回值会被格式化,inner_text()返回的值, 依赖于页面的显示, 
-locator.count()  #获取元素个数
-all_inner_texts() 和 all_text_contents()  #也是用于获取页面上的文本，但是返回的是list列表
+##  palywright
+##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple playwright
+
+##  安装内置浏览器
+##  playwright install
+
+##  scrapy-playwright  
+##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple scrapy-playwright
+
+##  解析工具
+##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple beautifulsoup4 

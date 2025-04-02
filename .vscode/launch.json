@@ -12,7 +12,7 @@
             "cwd": "F://VsCodeWork//Scrapy//eyes",
             "args": [
                 "crawl",
-                "awesome"
+                "thepaper"
             ]
         },
         {
