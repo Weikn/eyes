@@ -2,7 +2,7 @@
 ##  创建虚拟环境 以及拉取依赖
 ###  python -m venv eyesLib
 
-- 切换到虚拟环境
+``` 切换到虚拟环境
 ##  .\eyesLib\Scripts\activate 
 
 ##  更新pip
@@ -23,3 +23,4 @@
 
 ##  解析工具
 ##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple beautifulsoup4 
+```
