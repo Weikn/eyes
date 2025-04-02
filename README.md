@@ -1,4 +1,4 @@
-#  poject  infols
+#  poject  info
 ##  创建虚拟环境 以及拉取依赖
 ```
 ##  python -m venv eyesLib
