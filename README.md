@@ -24,4 +24,7 @@
 
 ##  解析工具
 ##  pip install   -i https://pypi.tuna.tsinghua.edu.cn/simple beautifulsoup4 
+
+##
+##  pip3 install  -i https://pypi.tuna.tsinghua.edu.cn/simple PyMySQL
 ```

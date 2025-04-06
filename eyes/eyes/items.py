@@ -12,6 +12,11 @@ class EyesItem(scrapy.Item):
     
     pass
 
+class HotList(scrapy.Item):
+    ##3
+    hotList = scrapy.Field()
+
+
 class HotSearch(scrapy.Item):
     # 新闻标题
     title   = scrapy.Field()
