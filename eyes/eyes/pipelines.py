@@ -27,7 +27,7 @@ class HotSearchPipeline:
             'host': '',
             'port': 3306,
             'user': 'root',
-            'password': 'smart@123',
+            'password': '',
             'database': 'DB',
             'charset': 'utf8',
             'cursorclass': cursors.DictCursor  # 指定cursor的类
