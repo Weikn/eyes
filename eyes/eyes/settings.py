@@ -21,8 +21,10 @@ DOWNLOAD_HANDLERS = {
 # 设置这默认浏览器会打开
 # PLAYWRIGHT_LAUNCH_OPTIONS = {
 #     "headless": False,
-#     "timeout": 20 * 1000,  # 20 seconds
+#     "timeout": 5000 * 1000,  # 20 seconds
 # }
+
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 1000 * 1000
 
 PLAYWRIGHT_BROWSER_TYPE = "chromium"
 

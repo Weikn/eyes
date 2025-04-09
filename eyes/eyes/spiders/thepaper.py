@@ -1,5 +1,5 @@
 import scrapy
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright , Page
 from bs4 import BeautifulSoup
 import sys
 sys.path.append('..')
@@ -23,16 +23,10 @@ class DemoSpider(scrapy.Spider):
         )
 
 
-    def parse(self, response):
-        # page = response.meta["playwright_page"]
+    async  def parse(self, response):
         # # page.pause()
-        # hotHtml = page.locator('xpath=//*[@id="__next"]/main/div[2]/div[2]/div[2]/div[2]/div[5]/div[4]/div[2]').inner_html()
-        # 判断 是否在热搜页面  
-        # hotHtml = response.xpath('//*[@id="__next"]/main/div[2]/div[2]/div[2]/div[2]/div[5]/div[4]/div[2]').extract()
-        # hs = HotSearch()
-        # hs["auther"] = response.xpath('/html/head/title').extract()
-        # yield  hs
         #如果是
+        page: Page = response.meta["playwright_page"]
         if response.url == "https://www.thepaper.cn/" :
             print("获取热搜列表----")
             hotListA = response.xpath('//*[@id="__next"]/main/div[2]/div[2]/div[2]/div[2]/div[5]/div[4]/div[2]/ul//a').extract()
@@ -45,7 +39,7 @@ class DemoSpider(scrapy.Spider):
                 href = soup.a.get('href')
 
                 #打印a 标签所有内容
-                time.sleep(15)
+                time.sleep(5)
                 yield scrapy.Request(
                     response.urljoin(href),
                     callback=self.parse,
@@ -54,16 +48,19 @@ class DemoSpider(scrapy.Spider):
                         playwright_include_page=True
                     ),
                 )
+                # return response.urljoin(href)
 
+            await  page.close()
+            # await  page.context.close()
         else:
             hs = HotSearch()
-            hl =  []
-            
             ## 还待过滤标签 ['<p>4月2日，中共中央政治局委员、中央组织部部长石泰峰听取部机关深入贯彻中央八项规定精神学习教育开展情况。</p>']
-            hs["content"] = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[2]//p').extract()
-            hs["auther"]  = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[1]/div[1]/div[1]').extract()
-            hs["date"]    = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[1]/div[1]/div[2]/div/div/span').extract()
-            print("获取具体热搜内容。")
-            hl.append(hs)
+            # hs["content"] = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[2]//p').extract()
+            soup = BeautifulSoup(response.text ,'html.parser')
+            hs["content"] =  soup.find_all("div", {"class": "index_cententWrap__Jv8jK"})[0].text
+            hs["auther"]  =  soup.find_all("div", {"class": "index_left__LfzyH"})[0].text
+            hs["date"]    =  soup.find_all("div", {"class": "ant-space-item"})[0].text
+            await  page.close()
+            # await  page.context.close()
             yield hs
             
