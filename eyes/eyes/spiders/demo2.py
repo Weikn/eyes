@@ -33,3 +33,7 @@
 #     # print(hotHtml)
 #     # print(hotnew2)
 #     browser.close()                        # 关闭浏览器对象
+# a = ""
+# my = a or  "hello"
+
+# print(my)

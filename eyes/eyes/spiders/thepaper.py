@@ -39,7 +39,7 @@ class DemoSpider(scrapy.Spider):
                 href = soup.a.get('href')
 
                 #打印a 标签所有内容
-                time.sleep(5)
+                time.sleep(25)
                 yield scrapy.Request(
                     response.urljoin(href),
                     callback=self.parse,
@@ -56,10 +56,37 @@ class DemoSpider(scrapy.Spider):
             hs = HotSearch()
             ## 还待过滤标签 ['<p>4月2日，中共中央政治局委员、中央组织部部长石泰峰听取部机关深入贯彻中央八项规定精神学习教育开展情况。</p>']
             # hs["content"] = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[2]//p').extract()
+            #子页面存在视频页面存在图片页面
             soup = BeautifulSoup(response.text ,'html.parser')
-            hs["content"] =  soup.find_all("div", {"class": "index_cententWrap__Jv8jK"})[0].text
-            hs["auther"]  =  soup.find_all("div", {"class": "index_left__LfzyH"})[0].text
-            hs["date"]    =  soup.find_all("div", {"class": "ant-space-item"})[0].text
+            #如果图文页面有东西
+            if soup.find_all("h1", {"class": "index_title__B8mhI"}) != [] :
+                hs["title"]    =  soup.find_all("h1", {"class": "index_title__B8mhI"})[0].text
+                hs["content"]  =  soup.find_all("div", {"class": "index_cententWrap__Jv8jK"})[0].text
+                hs["auther"]   =  soup.find_all("div", {"class": "index_left__LfzyH"})[0].text
+                hs["date"]     =  soup.find_all("div", {"class": "ant-space-item"})[0].text
+                hs["type"]     =  "text"
+                hs["status"]   =  "success"
+                
+            #否则视频页面
+            elif soup.find_all("h2", {"class": "header_title__vP_8V"}) != []:
+                hs["title"]    =  soup.find_all("h2", {"class": "header_title__vP_8V"})[0].text
+                hs["content"]  =  soup.find_all("p", {"class": "header_desc__OlmEB"})[0].text
+                hs["auther"]   =  soup.find_all("div", {"class": "header_source__pJWco"})[0].text
+                hs["date"]     =  soup.find_all("div", {"class": "ant-space-item"})[0].text
+                hs["type"]     =  "video"
+                hs["status"]   =  "success"
+            #页面加载失败
+            elif soup.find_all("div", {"class": "ant-empty-description"}) !=[]:
+                print("网络问题 加载失败")
+                hs["title"]    =  " "
+                hs["content"]  =  " "
+                hs["auther"]   =  " "
+                hs["date"]     =  " "
+                hs["type"]     =  "error"
+                hs["status"]   =  "fail"
+
+            hs["url"]    = response.url
+            hs["source"] = "thepaper"
             await  page.close()
             # await  page.context.close()
             yield hs

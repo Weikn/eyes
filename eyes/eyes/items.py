@@ -29,6 +29,8 @@ class HotSearch(scrapy.Item):
     # url
     url     = scrapy.Field()
     # 类型
-    types   = scrapy.Field()
+    type   = scrapy.Field()
     # 时间
     date    = scrapy.Field()
+    # 状态
+    status  = scrapy.Field()

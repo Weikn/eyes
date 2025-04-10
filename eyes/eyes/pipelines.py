@@ -21,7 +21,6 @@ class EyesPipeline:
 
 class HotSearchPipeline:
     
-    
     def __init__(self):
         dbparams = {
             'host': '',
@@ -42,7 +41,7 @@ class HotSearchPipeline:
     @property
     def sql(self):
         if not self._sql:
-            self._sql = 'INSERT INTO HotSearch(date,auther,content) VALUES(%s,%s,%s)'
+            self._sql = 'INSERT INTO HotSearch(date,auther,content,title,url,source,type,status) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'
             return self._sql
         return self._sql
  
@@ -58,6 +57,11 @@ class HotSearchPipeline:
             item['date'],
             item['auther'],
             item['content'],
+            item['title'],
+            item['url'],
+            item['source'],
+            item['type'],
+            item['status'],
         )
         print("Insert 成功了")
         cursor.execute(self.sql, values)
