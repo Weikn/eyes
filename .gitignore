@@ -2,4 +2,4 @@ eyesLib/
 __pycache__/
 eyes/eyes/spiders/__pycache__
 eyes/eyes/__pycache__/
-# eyes/eyes/db.json
+eyes/eyes/db.json

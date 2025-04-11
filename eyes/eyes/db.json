@@ -1,9 +1,10 @@
-
 {
-    "host": "",
+
+    "host": "aweikn.top",
     "port": "3306",
-    "user": "",
-    "password": "",
-    "database": "",
+    "user": "root",
+    "password": "smart@123",
+    "database": "DB",
     "charset": "utf8"
+    
 }
