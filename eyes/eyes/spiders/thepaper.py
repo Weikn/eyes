@@ -1,4 +1,5 @@
 import scrapy
+import logging
 from playwright.sync_api import sync_playwright , Page
 from bs4 import BeautifulSoup
 import sys
@@ -28,16 +29,17 @@ class DemoSpider(scrapy.Spider):
         #如果是
         page: Page = response.meta["playwright_page"]
         if response.url == "https://www.thepaper.cn/" :
-            print("获取热搜列表----")
+            # print("获取热搜列表----")
+            logging.debug("--------获取热搜列表--------")
             hotListA = response.xpath('//*[@id="__next"]/main/div[2]/div[2]/div[2]/div[2]/div[5]/div[4]/div[2]/ul//a').extract()
             #解析html 内容取出所有a 标签对象
             # hotA = soup.find_all('a')
+            logging.debug("--------请求子页面--------")
             for  line in hotListA :
                 #通过 BeautifulSoup 解析 热搜html
                 soup = BeautifulSoup(line, 'html.parser')
                 #打印a 标签所有链接 href 属性
                 href = soup.a.get('href')
-
                 #打印a 标签所有内容
                 time.sleep(25)
                 yield scrapy.Request(
@@ -49,7 +51,6 @@ class DemoSpider(scrapy.Spider):
                     ),
                 )
                 # return response.urljoin(href)
-
             await  page.close()
             # await  page.context.close()
         else:
@@ -57,6 +58,7 @@ class DemoSpider(scrapy.Spider):
             ## 还待过滤标签 ['<p>4月2日，中共中央政治局委员、中央组织部部长石泰峰听取部机关深入贯彻中央八项规定精神学习教育开展情况。</p>']
             # hs["content"] = response.xpath('//*[@id="__next"]/main/div[4]/div[1]/div[1]/div/div[2]//p').extract()
             #子页面存在视频页面存在图片页面
+            logging.debug("--------解析子页面--------")
             soup = BeautifulSoup(response.text ,'html.parser')
             #如果图文页面有东西
             if soup.find_all("h1", {"class": "index_title__B8mhI"}) != [] :
@@ -78,7 +80,7 @@ class DemoSpider(scrapy.Spider):
             #页面加载失败
             elif soup.find_all("div", {"class": "ant-empty-description"}) !=[]:
                 print("网络问题 加载失败")
-                hs["title"]    =  " "
+                hs["title"]    =   page.title() 
                 hs["content"]  =  " "
                 hs["auther"]   =  " "
                 hs["date"]     =  " "

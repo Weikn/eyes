@@ -12,6 +12,9 @@ BOT_NAME = "eyes"
 SPIDER_MODULES = ["eyes.spiders"]
 NEWSPIDER_MODULE = "eyes.spiders"
 
+#log 
+# LOG_FILE="./a.log"
+LOG_LEVEL="DEBUG"
 
 DOWNLOAD_HANDLERS = {
     "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
