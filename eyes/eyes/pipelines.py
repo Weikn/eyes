@@ -16,6 +16,9 @@ import os
 class EyesPipeline:
     def process_item(self, item, spider):
         logging.debug("EyesPipeline")
+        print("EyesPipeline")
+        print(spider.name)
+        print(item)
         return item
 
 
@@ -24,17 +27,23 @@ class EyesPipeline:
 class HotSearchPipeline:
     
     def __init__(self):
-        logging.debug("HotSearchPipeline init")
-        # 声明一个字典
-        dbparams= {}
-        # 读取db 配置文件 db.json 
+        params= {}
         with open(os.path.dirname(os.path.abspath(__file__))+ "/" +"db.json", "r") as f:
-            dbparams = json.load(f)
-        # 配置文件生成字典
-        dbparams["cursorclass"] = cursors.DictCursor
-        #初始化数据库连接池，参数1是mysql的驱动，参数2是连接mysql的配置信息
+            params = json.load(f)
+        logging.debug("HotSearchPipeline init")
+        dbparams = {
+            'host':     params.get("host"),
+            'port':     3306,
+            'user':     params.get("user"),
+            'password': params.get("password"),
+            'database': params.get("database"),
+            'charset': 'utf8',
+            'cursorclass': cursors.DictCursor  # 指定cursor的类
+        }
+        # self.dbparams["cursorclass"] = cursors.DictCursor
+    #初始化数据库连接池，参数1是mysql的驱动，参数2是连接mysql的配置信息
         self.db_pool = adbapi.ConnectionPool('pymysql', **dbparams)
-        #sql语言的空值
+    #sql语言的空值
         self._sql = None
     
 
@@ -54,6 +63,13 @@ class HotSearchPipeline:
         query = self.db_pool.runInteraction(self.insert_db,item)
         query.addErrback(self.handle_error, item, spider)
     def insert_db(self,cursor, item):
+        # tt = cursor._connection._connection
+        # try:
+        #     tt.ping()
+        # except:
+        #     self.db_pool.close()
+        #     self.db_pool = adbapi.ConnectionPool('pymysql', self.dbparams)
+        print("insert")
         logging.debug("--------insert Db--------")
         values = (
             item['date'],
@@ -65,10 +81,10 @@ class HotSearchPipeline:
             item['type'],
             item['status'],
         )
+        print("Insert 成功了")
         logging.debug("--------Insert success--------")
         cursor.execute(self.sql, values)
     def handle_error(self,error,item,spider):
         logging.error('='*10 + "error" + '='*10)
         logging.error(error)
         logging.error('=' * 10 + "error" + '=' * 10)
-        

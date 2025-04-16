@@ -19,7 +19,9 @@ class DemoSpider(scrapy.Spider):
             meta=dict(
                 #
                 playwright=True,
-                playwright_include_page=True
+                playwright_include_page=True,
+                errback=self.errback_close_page,
+                callback=self.parse
             ),
         )
 
@@ -86,6 +88,12 @@ class DemoSpider(scrapy.Spider):
                 hs["date"]     =  " "
                 hs["type"]     =  "error"
                 hs["status"]   =  "fail"
+                yield scrapy.Request(
+                    url= response.url,
+                    callback=self.parse_second,
+                    meta={"playwright": True, "playwright_include_page": True, "playwright_page": page},
+                    errback=self.errback_close_page,
+                )
 
             hs["url"]    = response.url
             hs["source"] = "thepaper"
@@ -93,3 +101,20 @@ class DemoSpider(scrapy.Spider):
             # await  page.context.close()
             yield hs
             
+    async def parse_second(self, response):
+        page: Page = response.meta["playwright_page"]
+        soup = BeautifulSoup(response.text ,'html.parser')
+        hs = HotSearch()
+        hs["title"]    =  soup.find_all("h2", {"class": "header_title__vP_8V"})[0].text
+        hs["content"]  =  soup.find_all("p", {"class": "header_desc__OlmEB"})[0].text
+        hs["auther"]   =  soup.find_all("div", {"class": "header_source__pJWco"})[0].text
+        hs["date"]     =  soup.find_all("div", {"class": "ant-space-item"})[0].text
+        hs["type"]     =  "video"
+        hs["status"]   =  "success"
+        await page.close()
+        yield hs
+
+    async def errback_close_page(self, failure):
+        page: Page = failure.request.meta["playwright_page"]
+        print("加载失败")
+        await page.close()
